@@ -11,10 +11,29 @@ double cpsMin = 12.0;
 double cpsMax = 16.0;
 double randomCps;
 
+bool infoVisable = true;
+
 double dRandRange(double min, double max)
 {
     double f = (double)rand() / RAND_MAX;
     return min + f * (max - min);
+}
+
+void clearLine(COORD line, int length) {
+    COORD topLeft = { 0, 0 }; //Coord to top left
+    HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE); //Get a handle on the console
+    CONSOLE_SCREEN_BUFFER_INFO screen; //Buffer info variable
+    DWORD written; // Type DWORD (32bit variable)
+
+    GetConsoleScreenBufferInfo(console, &screen); //Get the buffer info
+    FillConsoleOutputCharacterA(
+        console, ' ', length, line, &written
+    ); // Fill the console with char '' with the length of x on line y and point to the num of chars written https://docs.microsoft.com/en-us/windows/console/fillconsoleoutputcharacter
+    FillConsoleOutputAttribute(
+        console, FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_BLUE,
+        length, line, &written
+    ); //Get rid of colours in background
+    SetConsoleCursorPosition(console, topLeft); //Set the cursor position
 }
 
 void keyThread()
@@ -42,6 +61,23 @@ void keyThread()
     }
 }
 
+void updateInfoThread()
+{
+    HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
+    double* randCpsAddr = &randomCps;
+
+    while (true)
+    {
+        if (infoVisable == true) {
+            clearLine({ 6, 11 }, 32);
+            SetConsoleCursorPosition(console, { 0, 11 });
+            std::cout << "CPS: " << *randCpsAddr << std::endl;
+        }
+        SetConsoleCursorPosition(console, { 0, 0 });
+        Sleep(1000);
+    }
+}
+
 int main()
 {
     std::cout << "AUTO KEKRA CPP!\n";
@@ -58,7 +94,7 @@ int main()
     std::cout << "-----Binds-----\n";
     std::cout << "Activate: " << HOLDBUTTON << std::endl;
     std::cout << "Exit: " << EXITBUTTON << std::endl;
-
+    std::thread infoThread(updateInfoThread);
     thread.join();
     return 0;
 }
