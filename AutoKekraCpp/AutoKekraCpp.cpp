@@ -73,8 +73,8 @@ void updateInfoThread()
             SetConsoleCursorPosition(console, { 0, 11 });
             std::cout << "CPS: " << *randCpsAddr << std::endl;
         }
-        SetConsoleCursorPosition(console, { 0, 0 });
-        Sleep(1000);
+        SetConsoleCursorPosition(console, { 0, 0 }); //set cursor to top left
+        Sleep(1000); //Refresh every seccond
     }
 }
 
