@@ -22,11 +22,49 @@ void settingsInit() {
 
 	std::ifstream is;
 	is.open("settings.txt");
-	for (int i = 0; i < 22; i++)
+	if (is)
 	{
-		is >> lines[i];
-		//std::cout << lines[i] << std::endl;
+		for (int i = 0; i < 22; i++)
+		{
+			is >> lines[i];
+			//std::cout << lines[i] << std::endl;
+		}
+		is.close();
 	}
+	else
+	{
+		int msgboxID = MessageBox(
+			NULL,
+			(LPCWSTR)L"Settings file does not exist, would you like to create it?",
+			(LPCWSTR)L"Alert",
+			MB_ICONWARNING | MB_YESNO | MB_DEFBUTTON2
+		);
+		if (msgboxID == 6)
+		{
+			std::ofstream sf("settings.txt");
+			sf << "Binds for auto kekra!\nuse https ://cherrytree.at/misc/vk.htm for the key codes.\n\nHOLDBUTTON: 6\nEXITBUTTON : 96\n\nCpsMin : 12.0\nCpsMax : 16.0";
+			sf.close();
+			std::ifstream insf;
+			insf.open("settings.txt");
+			for (int i = 0; i < 22; i++)
+			{
+				insf >> lines[i];
+				//std::cout << lines[i] << std::endl;
+			}
+			insf.close();
+		}
+		else if (msgboxID == 7)
+		{
+			int msgboxDBN = MessageBox(
+				NULL,
+				(LPCWSTR)L"Ok, reverting to defult binds.",
+				(LPCWSTR)L"Alert",
+				MB_ICONWARNING | MB_OK | MB_DEFBUTTON2
+			);
+			return;
+		}
+	}
+
 
 	for (int i = 0; i < lines[12].length(); i++)
 	{
@@ -35,7 +73,7 @@ void settingsInit() {
 			int msgboxID = MessageBox(
 				NULL,
 				(LPCWSTR)L"Invalid option for HOLDBUTTON, please use a key code. Reverting to defult..",
-				(LPCWSTR)L"Account Details",
+				(LPCWSTR)L"Alert",
 				MB_ICONWARNING | MB_OK | MB_DEFBUTTON2
 			);
 			isValid = false;
@@ -52,7 +90,7 @@ void settingsInit() {
 			int msgboxID = MessageBox(
 				NULL,
 				(LPCWSTR)L"Invalid option for EXITBUTTON, please use a key code. Reverting to defult.",
-				(LPCWSTR)L"Account Details",
+				(LPCWSTR)L"Alert",
 				MB_ICONWARNING | MB_OK | MB_DEFBUTTON2
 			);
 			isValid = false;
@@ -69,7 +107,7 @@ void settingsInit() {
 			int msgboxID = MessageBox(
 				NULL,
 				(LPCWSTR)L"Invalid option for cpsMin, please use a key code. Reverting to defult.",
-				(LPCWSTR)L"Account Details",
+				(LPCWSTR)L"Alert",
 				MB_ICONWARNING | MB_OK | MB_DEFBUTTON2
 			);
 			isValid = false;
@@ -87,7 +125,7 @@ void settingsInit() {
 			int msgboxID = MessageBox(
 				NULL,
 				(LPCWSTR)L"Invalid option for cpsMax, please use a key code. Reverting to defult.",
-				(LPCWSTR)L"Account Details",
+				(LPCWSTR)L"Alert",
 				MB_ICONWARNING | MB_OK | MB_DEFBUTTON2
 			);
 			isValid = false;
