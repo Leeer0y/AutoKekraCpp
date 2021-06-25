@@ -1,3 +1,4 @@
 Binds for auto kekra!
 
 HOLDBUTTON : MB5
+EXITBUTTON : Numpad0
