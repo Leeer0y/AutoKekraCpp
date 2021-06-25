@@ -3,9 +3,13 @@
 
 #include <iostream>
 #include <Windows.h>
+#include <thread>
 
 #include "defines.h"
 
+double cpsMin = 12.0;
+double cpsMax = 16.0;
+double randomCps;
 
 double dRandRange(double min, double max)
 {
@@ -13,17 +17,12 @@ double dRandRange(double min, double max)
     return min + f * (max - min);
 }
 
-int main()
+void keyThread()
 {
-    double cpsMin = 12.0;
-    double cpsMax = 16.0;
-    double randomCps;
-
-    std::cout << "AUTO KEKRA CPP!\n";
-
     while (true) {
         if (GetAsyncKeyState(EXITBUTTON)) {
-            return 0; // exit
+            std::cout << "exiting...\n";
+            exit(EXIT_SUCCESS); // exit
         }
         if (GetAsyncKeyState(HOLDBUTTON))
         {
@@ -35,13 +34,36 @@ int main()
             iNPUT.type = INPUT_MOUSE;
             iNPUT.mi.dwFlags = MOUSEEVENTF_LEFTUP;
             SendInput(1, &iNPUT, sizeof(iNPUT));
-            std::cout << "The side mouse button was pressed!\n";
+            //std::cout << "The side mouse button was pressed!\n";
             randomCps = dRandRange(cpsMin, cpsMax);
-            std::cout << randomCps << std::endl;
+            //std::cout << randomCps << std::endl;
             Sleep(1000 / randomCps);
         }
     }
 }
+
+int main()
+{
+    std::cout << "AUTO KEKRA CPP!\n";
+
+    std::thread thread(keyThread);
+
+    std::cout << " ____  __.      __                   " <<
+        "\n |    |/ _|____ |  | ______________   " <<
+        "\n |      <_/ __ \u005c|  |/ /\u005c_  __ \u005c__  \u005c  " <<
+        "\n |    |  \u005c  ___/|    <  |  | \u005c// __ \u005c_" <<
+        "\n |____|__ \u005c___  >__|_ \u005c |__|  (____  /" <<
+        "\n         \u005c/   \u005c/     \u005c/            \u005c/ " << std::endl;
+    
+    std::cout << "-----Binds-----\n";
+    std::cout << "Activate: " << HOLDBUTTON << std::endl;
+    std::cout << "Exit: " << EXITBUTTON << std::endl;
+
+    thread.join();
+    return 0;
+}
+
+
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
 // Debug program: F5 or Debug > Start Debugging menu
