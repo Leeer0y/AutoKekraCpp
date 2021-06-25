@@ -1,8 +1,0 @@
-Binds for auto kekra!
-use https ://cherrytree.at/misc/vk.htm for the key codes.
-
-HOLDBUTTON: 6
-EXITBUTTON : 96
-
-CpsMin : 12.0
-CpsMax : 16.0
