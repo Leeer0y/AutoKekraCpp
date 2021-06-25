@@ -2,6 +2,7 @@
 //Very usefull tutorial : https://www.youtube.com/watch?v=j4VFo4acorQ
 
 #include <iostream>
+#include <fstream>
 #include <Windows.h>
 #include <thread>
 
@@ -58,6 +59,7 @@ void updateInfoThread()
 
 int main()
 {
+    settingsInit();
     std::cout << "AUTO KEKRA CPP!\n";
 
     std::thread thread(keyThread);

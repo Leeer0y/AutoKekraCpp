@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <windows.h>
+#include <dinput.h>
 
 double dRandRange(double min, double max)
 {
@@ -30,3 +31,4 @@ void clearLine(COORD line, int length) {
 
     SetConsoleCursorPosition(console, topLeft); //Set the cursor position
 }
+
