@@ -9,8 +9,6 @@
 #include "defines.h"
 #include "functions.h"
 
-double cpsMin = 12.0;
-double cpsMax = 16.0;
 double randomCps;
 
 bool infoVisable = true;
