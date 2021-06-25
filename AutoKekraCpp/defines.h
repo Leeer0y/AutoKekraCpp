@@ -86,7 +86,7 @@ void settingsInit() {
 		{
 			int msgboxID = MessageBox(
 				NULL,
-				(LPCWSTR)L"Invalid option for cpsMin, please use a key code. Reverting to defult.",
+				(LPCWSTR)L"Invalid option for cpsMax, please use a key code. Reverting to defult.",
 				(LPCWSTR)L"Account Details",
 				MB_ICONWARNING | MB_OK | MB_DEFBUTTON2
 			);
