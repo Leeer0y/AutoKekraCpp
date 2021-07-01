@@ -13,6 +13,31 @@ double randomCps;
 
 bool infoVisable = true;
 
+void keyThread();
+void updateInfoThread();
+
+int main()
+{
+    settingsInit();
+    std::cout << "AUTO KEKRA CPP!\n";
+
+    std::thread thread(keyThread);
+
+    std::cout << " ____  __.      __                   " <<
+        "\n |    |/ _|____ |  | ______________   " <<
+        "\n |      <_/ __ \u005c|  |/ /\u005c_  __ \u005c__  \u005c  " <<
+        "\n |    |  \u005c  ___/|    <  |  | \u005c// __ \u005c_" <<
+        "\n |____|__ \u005c___  >__|_ \u005c |__|  (____  /" <<
+        "\n         \u005c/   \u005c/     \u005c/            \u005c/ " << std::endl;
+    
+    std::cout << "-----Binds-----\n";
+    std::cout << "Activate: " << HOLDBUTTON << std::endl;
+    std::cout << "Exit: " << EXITBUTTON << std::endl;
+    std::thread infoThread(updateInfoThread);
+    thread.join();
+    return 0;
+}
+
 void keyThread()
 {
     while (true) {
@@ -53,28 +78,6 @@ void updateInfoThread()
         SetConsoleCursorPosition(console, { 0, 0 }); //set cursor to top left
         Sleep(1000); //Refresh every seccond
     }
-}
-
-int main()
-{
-    settingsInit();
-    std::cout << "AUTO KEKRA CPP!\n";
-
-    std::thread thread(keyThread);
-
-    std::cout << " ____  __.      __                   " <<
-        "\n |    |/ _|____ |  | ______________   " <<
-        "\n |      <_/ __ \u005c|  |/ /\u005c_  __ \u005c__  \u005c  " <<
-        "\n |    |  \u005c  ___/|    <  |  | \u005c// __ \u005c_" <<
-        "\n |____|__ \u005c___  >__|_ \u005c |__|  (____  /" <<
-        "\n         \u005c/   \u005c/     \u005c/            \u005c/ " << std::endl;
-    
-    std::cout << "-----Binds-----\n";
-    std::cout << "Activate: " << HOLDBUTTON << std::endl;
-    std::cout << "Exit: " << EXITBUTTON << std::endl;
-    std::thread infoThread(updateInfoThread);
-    thread.join();
-    return 0;
 }
 
 
