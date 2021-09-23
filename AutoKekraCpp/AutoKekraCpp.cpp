@@ -31,8 +31,8 @@ int main()
         "\n         \u005c/   \u005c/     \u005c/            \u005c/ " << std::endl;
     
     std::cout << "-----Binds-----\n";
-    std::cout << "Activate: " << HOLDBUTTON << std::endl;
-    std::cout << "Exit: " << EXITBUTTON << std::endl;
+    std::cout << "Activate: " << holdBTN << std::endl;
+    std::cout << "Exit: " << exitBTN << std::endl;
     std::thread infoThread(updateInfoThread);
     thread.join();
     return 0;
@@ -41,11 +41,11 @@ int main()
 void keyThread()
 {
     while (true) {
-        if (GetAsyncKeyState(EXITBUTTON)) {
+        if (GetAsyncKeyState(exitBTN)) {
             std::cout << "exiting...\n";
             exit(EXIT_SUCCESS); // exit
         }
-        if (GetAsyncKeyState(HOLDBUTTON))
+        if (GetAsyncKeyState(holdBTN))
         {
             INPUT iNPUT = { 0 };
             iNPUT.type = INPUT_MOUSE;

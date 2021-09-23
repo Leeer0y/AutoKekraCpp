@@ -10,8 +10,8 @@ Here is a link to the Virtual-Key Codes https://docs.microsoft.com/en-us/windows
 
 */
 
-int HOLDBUTTON = VK_XBUTTON2;
-int EXITBUTTON = VK_NUMPAD0;
+int holdBTN = VK_XBUTTON2;
+int exitBTN = VK_NUMPAD0;
 
 double cpsMin = 12.0;
 double cpsMax = 16.0;
@@ -28,6 +28,7 @@ void settingsInit() {
 		{
 			is >> lines[i];
 			//std::cout << lines[i] << std::endl;
+
 		}
 		is.close();
 	}
@@ -66,7 +67,7 @@ void settingsInit() {
 	}
 
 
-	for (int i = 0; i < lines[12].length(); i++)
+	for (int i = 0; i <  lines[12].length(); i++)
 	{
 		if (!isdigit(lines[12][i]))
 		{
@@ -81,7 +82,7 @@ void settingsInit() {
 		}
 	}
 
-		HOLDBUTTON = std::stoi(lines[12]);
+	holdBTN = std::stoi(lines[12]);
 
 	for (int i = 0; i < lines[12].length(); i++)
 	{
@@ -98,7 +99,7 @@ void settingsInit() {
 		}
 	}
 
-	EXITBUTTON = std::stoi(lines[15]);
+	exitBTN = std::stoi(lines[15]);
 
 	for (int i = 0; i < lines[18].length(); i++)
 	{
