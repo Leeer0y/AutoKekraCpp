@@ -18,7 +18,7 @@ double cpsMax = 16.0;
 
 void settingsInit() {
 	bool isValid = true;
-	std::string lines[22];
+	std::string words[22];
 
 	std::ifstream is;
 	is.open("settings.txt");
@@ -26,7 +26,7 @@ void settingsInit() {
 	{
 		for (int i = 0; i < 22; i++)
 		{
-			is >> lines[i];
+			is >> words[i];
 			//std::cout << lines[i] << std::endl;
 
 		}
@@ -43,13 +43,13 @@ void settingsInit() {
 		if (msgboxID == 6)
 		{
 			std::ofstream sf("settings.txt");
-			sf << "Binds for auto kekra!\nuse https ://cherrytree.at/misc/vk.htm for the key codes.\n\nHOLDBUTTON: 6\nEXITBUTTON : 96\n\nCpsMin : 12.0\nCpsMax : 16.0";
+			sf << "Binds for auto kekra! \nuse https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.keys?view=net-5.0 for list of key codes.\n\nHOLDBUTTON: 6 \nEXITBUTTON: 96 \n\nCpsMin: 12.0\nCpsMax: 16.0";
 			sf.close();
 			std::ifstream insf;
 			insf.open("settings.txt");
 			for (int i = 0; i < 22; i++)
 			{
-				insf >> lines[i];
+				insf >> words[i];
 				//std::cout << lines[i] << std::endl;
 			}
 			insf.close();
@@ -66,75 +66,86 @@ void settingsInit() {
 		}
 	}
 
-
-	for (int i = 0; i <  lines[12].length(); i++)
+	for (int i = 0; i < 22; i++)
 	{
-		if (!isdigit(lines[12][i]))
+		//std::cout << words[i];
+		if (std::strcmp(words[i].c_str(), "HOLDBUTTON:") == 0)
 		{
-			int msgboxID = MessageBox(
-				NULL,
-				(LPCWSTR)L"Invalid option for HOLDBUTTON, please use a key code. Reverting to defult..",
-				(LPCWSTR)L"Alert",
-				MB_ICONWARNING | MB_OK | MB_DEFBUTTON2
-			);
-			isValid = false;
-			return;
+			for (int x = 0; x < words[i + 1].length(); x++)
+			{
+				if (!isdigit(words[i + 1][x]))
+				{
+					int msgboxID = MessageBox(
+						NULL,
+						(LPCWSTR)L"Invalid option for HOLDBUTTON, please use a key code. Reverting to defult..",
+						(LPCWSTR)L"Alert",
+						MB_ICONWARNING | MB_OK | MB_DEFBUTTON2
+					);
+					isValid = false;
+					return;
+				}
+			}
+			holdBTN = std::stoi(words[i + 1]);
 		}
-	}
-
-	holdBTN = std::stoi(lines[12]);
-
-	for (int i = 0; i < lines[12].length(); i++)
-	{
-		if (!isdigit(lines[15][i]))
+		
+		if (std::strcmp(words[i].c_str(), "EXITBUTTON:") == 0)
 		{
-			int msgboxID = MessageBox(
-				NULL,
-				(LPCWSTR)L"Invalid option for EXITBUTTON, please use a key code. Reverting to defult.",
-				(LPCWSTR)L"Alert",
-				MB_ICONWARNING | MB_OK | MB_DEFBUTTON2
-			);
-			isValid = false;
-			return;
+			for (int x = 0; x < words[i + 1].length(); x++)
+			{
+				if (!isdigit(words[i + 1][x]))
+				{
+					int msgboxID = MessageBox(
+						NULL,
+						(LPCWSTR)L"Invalid option for EXITBUTTON, please use a key code. Reverting to defult..",
+						(LPCWSTR)L"Alert",
+						MB_ICONWARNING | MB_OK | MB_DEFBUTTON2
+					);
+					isValid = false;
+					return;
+				}
+			}
+			exitBTN = std::stoi(words[i + 1]);
 		}
-	}
 
-	exitBTN = std::stoi(lines[15]);
-
-	for (int i = 0; i < lines[18].length(); i++)
-	{
-		if (!isdigit(lines[18][i]) && lines[18][i] != '.')
+		if (std::strcmp(words[i].c_str(), "CpsMin:") == 0)
 		{
-			int msgboxID = MessageBox(
-				NULL,
-				(LPCWSTR)L"Invalid option for cpsMin, please use a key code. Reverting to defult.",
-				(LPCWSTR)L"Alert",
-				MB_ICONWARNING | MB_OK | MB_DEFBUTTON2
-			);
-			isValid = false;
-			return;
-
+			for (int x = 0; x < words[i + 1].length(); x++)
+			{
+				if (!isdigit(words[i + 1][x]) && words[i + 1][x] != '.')
+				{
+					int msgboxID = MessageBox(
+						NULL,
+						(LPCWSTR)L"Invalid option for CpsMin, please use a number. Reverting to defult..",
+						(LPCWSTR)L"Alert",
+						MB_ICONWARNING | MB_OK | MB_DEFBUTTON2
+					);
+					isValid = false;
+					return;
+				}
+			}
+			cpsMin = std::stod(words[i + 1]);
 		}
-	}
 
-	cpsMin = std::stod(lines[18]);
-
-	for (int i = 0; i < lines[21].length(); i++)
-	{
-		if (!isdigit(lines[21][i]) && lines[21][i] != '.')
+		if (std::strcmp(words[i].c_str(), "CpsMax:") == 0)
 		{
-			int msgboxID = MessageBox(
-				NULL,
-				(LPCWSTR)L"Invalid option for cpsMax, please use a key code. Reverting to defult.",
-				(LPCWSTR)L"Alert",
-				MB_ICONWARNING | MB_OK | MB_DEFBUTTON2
-			);
-			isValid = false;
-			return;
+			for (int x = 0; x < words[i + 1].length(); x++)
+			{
+				if (!isdigit(words[i + 1][x]) && words[i + 1][x] != '.')
+				{
+					int msgboxID = MessageBox(
+						NULL,
+						(LPCWSTR)L"Invalid option for CpsMax, please use a number. Reverting to defult..",
+						(LPCWSTR)L"Alert",
+						MB_ICONWARNING | MB_OK | MB_DEFBUTTON2
+					);
+					isValid = false;
+					return;
+				}
+			}
+			cpsMax = std::stod(words[i + 1]);
 		}
+		
 	}
-
-	cpsMax = std::stod(lines[21]);
 }
 
 

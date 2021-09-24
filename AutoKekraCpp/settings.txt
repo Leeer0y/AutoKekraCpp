@@ -1,8 +1,8 @@
-Binds for auto kekra!
-use https ://cherrytree.at/misc/vk.htm for the key codes.
+Binds for auto kekra! 
+use https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.keys?view=net-5.0 for list of key codes.
 
-HOLDBUTTON: 6
-EXITBUTTON : 96
+HOLDBUTTON: 6 
+EXITBUTTON: 96 
 
-CpsMin : 12.0
-CpsMax : 16.0
+CpsMin: 12.0
+CpsMax: 16.0
