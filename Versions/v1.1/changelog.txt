@@ -1,0 +1,3 @@
+Autokekra change long - changes from 1.0
+ - Fixed code with the settings file and made it more efficent
+ - Changed link for key codes in settings file
